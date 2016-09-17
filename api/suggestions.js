@@ -54,14 +54,17 @@ module.exports = function(req, res){
 
   var results = _.map(response.body.tracks.items, function(song){
     //in most cases the third image on the returning json is a 64px x 64px
-    var imgUrl = song.album.images[2].url;
+    var images = song.album.images;
+    var imgUrl;
+    if(images){
+      imgUrl = song.album.images[images.length - 1].url;
+    }
     var songName = song.name;
     var artistName = _.map(song.artists, function(el) {
       return el.name;
     }).join(', ');
 
     var fullHtml = '<table><tbody><tr><td rowspan="2"><img style="float:left;margin-right:5px;height: 55px;"src="' + imgUrl + '"></td></tr><tr><td><h4>' + songName + '</h4><h5 style="color:grey;">'+ artistName +'</h5></td></tr></tbody></table>';
-
 
     return {
       title: fullHtml,
