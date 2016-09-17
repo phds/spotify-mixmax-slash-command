@@ -65,7 +65,7 @@ module.exports = function(req, res){
 
     return {
       title: fullHtml,
-      text: song.uri
+      text: song.id
     };
   });
 
