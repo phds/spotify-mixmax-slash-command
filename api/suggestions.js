@@ -8,7 +8,7 @@ module.exports = function(req, res){
 
   if (!term) {
     res.json([{
-      title: '<i>(enter a song title)</i>',
+      title: '<i>Enter a song title!</i>',
       text: ''
     }]);
     return;
@@ -26,36 +26,48 @@ module.exports = function(req, res){
       json: true
     }, sync.defer()));
   } catch(e) {
-    console.log(e);
-    res.status(500).send('Error');
+    //it'd be interesting to have an logging tool saving the error message
+    //plus information about what led to it (query string)
+    //right now it is being lost, but I reckon we should at least tell the user
+    res.status(500).json([{
+      title: 'Results not found due to a server error!',
+      text: ''
+    }]);
     return;
   }
 
-  if (response.statusCode !== 200 || !response.body || !response.body.tracks) {
-    res.status(500).send('Error');
+  if (response.statusCode !== 200 || !response.body) {
+    res.status(500).json([{
+      title: '<i>Results not found due to a server error!</i>',
+      text: ''
+    }]);
+    return;
+  }
+
+  if(!response.body.tracks){
+    res.json([{
+      title: '<i>No results were found!</i>',
+      text: ''
+    }]);
     return;
   }
 
   var results = _.map(response.body.tracks.items, function(song){
+    //in most cases the third image on the returning json is a 64px x 64px
     var imgUrl = song.album.images[2].url;
     var songName = song.name;
-    console.log(JSON.stringify(song.artists, null, 2));
     var artistName = _.map(song.artists, function(el) {
       return el.name;
     }).join(', ');
 
+    var fullHtml = '<table><tbody><tr><td rowspan="2"><img style="float:left;margin-right:5px;height: 55px;"src="' + imgUrl + '"></td></tr><tr><td><h4>' + songName + '</h4><h5 style="color:grey;">'+ artistName +'</h5></td></tr></tbody></table>';
+
+
     return {
-      title: '<img style="float:left;margin-right:5px;height: 55px;"src="' + imgUrl + '"><h4>' + songName + '</h4><h5 style="color:grey;">'+ artistName +'</h5>',
+      title: fullHtml,
       text: song.uri
     };
   });
-  if(results.length === 0){
-    res.json([{
-      title: '<i>(no results)</i>',
-      text: 'title dhaiudhsaiu'
-    }]);
-  }
-  else{
-    res.json(results);
-  }
+
+  res.json(results);
 };
