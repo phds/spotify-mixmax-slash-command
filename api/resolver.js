@@ -37,7 +37,7 @@ module.exports = function(req, res){
   var artistName = _.map(response.body.artists, function(el) {
     return el.name;
   }).join(', ');
-  var html = '<div title="Spotify" style="width: 300px;box-sizing: border-box;background-color: #282828;font-family: Circular,Helvetica,Arial,sans-serif;white-space: nowrap;text-overflow: ellipsis;text-align: center;padding: 7px;" ><a style="text-decoration: none;"href="' + externalUrl + '"><div style="color: #fff;margin-bottom: 3px;width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow-x: hidden;">' + songName + '</div><div style="color: #a0a0a0;white-space: nowrap;text-overflow: ellipsis;overflow-x: hidden;">'+ artistName +'</div><div style="color: #fff;background-color: #2ebd59;width: 130px;height: 17px;margin: auto;padding: 5px 0;border-radius: 25px;">PLAY NOW</div></a></div>';
+  var html = '<div title="Spotify" style="width: 300px;box-sizing: border-box;background-color: #282828;font-family: Circular,Helvetica,Arial,sans-serif;white-space: nowrap;text-overflow: ellipsis;text-align: center;padding: 7px;" ><div style="color: #fff;margin-bottom: 3px;width: 100%;white-space: nowrap;text-overflow: ellipsis;overflow-x: hidden;">' + songName + '</div><div style="color: #a0a0a0;white-space: nowrap;text-overflow: ellipsis;overflow-x: hidden;">'+ artistName +'</div><a style="text-decoration: none;"href="' + externalUrl + '"><div style="color: #fff;background-color: #2ebd59;width: 130px;height: 17px;margin: auto;padding: 5px 0;border-radius: 25px;">PLAY NOW</div></a></div>';
   res.json({
     body: html
   });
