@@ -14,4 +14,7 @@ To enable this addon on your Mixmax account (assuming you already have it set up
 
 Finally restart Gmail with Mixmax installed. Click compose and then type in ```/spotifysearch``` followed by a song title or artist name and select a song to send in your email!
 ### Running locally
-To run this project locally, first of follow the [tutorial](http://sdk.mixmax.com/docs/chrome-insecure-content-https-request-blocked-when-developing-locally) to run chrome in "insecure" mode. Then install using ```npm install``` and then ```npm start``` to run. Optionally, you can run ```npm test``` to run the tests.
+To run this project locally, first of follow the [tutorial](http://sdk.mixmax.com/docs/chrome-insecure-content-https-request-blocked-when-developing-locally) to run chrome in "insecure" mode. Then install using ```npm install``` and then ```npm start``` to run. Optionally, you can run ```npm test``` to run the tests. To run the local version of the addon, follow the same steps above for running it on Mixmax, except the last two inputs should be like this:
+
+- Typeahead API URL: localhost:1412/api/suggestions
+- Resolver API URL: localhost:1412/api/resolver
