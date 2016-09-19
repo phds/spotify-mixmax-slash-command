@@ -2,19 +2,23 @@
   "name": "spotify-mixmax",
   "version": "1.0.0",
   "description": "Spotify addon for mixmax",
-  "main": "index.js",
+  "main": "server.js",
   "dependencies": {
     "cors": "^2.8.1",
     "express": "^4.14.0",
     "nodemon": "^1.7.1",
     "request": "^2.74.0",
-    "synchronize": "^2.0.0",
     "underscore": "^1.8.3"
   },
-  "devDependencies": {},
+  "devDependencies": {
+    "jasmine": "^2.5.2",
+    "nock": "^8.0.0",
+    "supertest": "^2.0.0"
+  },
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node server.js",
+    "watch": "nodemon server.js",
+    "test": "node ./node_modules/jasmine/bin/jasmine.js --captureExceptions"
   },
   "author": "Pedro Dias",
   "license": "ISC"
